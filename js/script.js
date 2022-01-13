@@ -76,7 +76,7 @@ function ordenarProductos(criterio) {
         });
     }
     else {
-        console.error("Error: criterio de ordenación inválido");
+        console.error("Error: criterio de ordenamiento inválido");
     }
 }
 
