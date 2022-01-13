@@ -44,8 +44,7 @@ function agregarProducto() {
 
 function eliminarProducto(nombre) {
     let indiceProducto = buscarProducto(nombre);
-    if(indiceProducto !== -1)
-    {
+    if (indiceProducto !== -1) {
         listaProductos.splice(indiceProducto, 1)
     }
 }
@@ -112,7 +111,7 @@ while ((respuesta !== "1") && (respuesta !== "2") && (respuesta === null)) {
     respuesta = prompt("Ingrese el número correspondiente al criterio que desea utilizar para ordenar la lista de productos:\n1. Ascendente\n2. Descendente\n");
 }
 
-if(respuesta === "1") {
+if (respuesta === "1") {
     ordenarProductos("ascendente");
 } else {
     ordenarProductos("descendente");
