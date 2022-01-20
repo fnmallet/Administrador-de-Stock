@@ -1,60 +1,61 @@
 ///// Variables
 
-let listaProductos = [];
-let respuesta = 0;
+let products = [{name: "a", price: 14, amount: 250},{name: "c", price: 30, amount: 107},{name: "z", price: 10, amount: 100},{name: "b", price: 100, amount: 500}];
+let answer = 0;
 
 ///// Clases
 
-class Producto {
-    constructor(nombre, precio, cantidad) {
-        this.nombre = nombre;
-        this.precio = precio;
-        this.cantidad = cantidad;
+class Product {
+    constructor(name, price, amount) {
+        this.name = name;
+        this.price = price;
+        this.amount = amount;
     }
 
-    calcularValor() {
-        return this.precio * this.cantidad;
+    calcValue() {
+        return this.price * this.amount;
     }
 }
 
 ///// Funciones
 
-function crearProducto() {
-    let nombre = prompt("Ingrese el nombre del nuevo producto:");
-    while (buscarProducto(nombre) !== -1) {
+function createProduct() {
+    let name = prompt("Ingrese el nombre del nuevo producto:");
+    while (findProduct(name) !== -1) {
         alert("El producto ingresado ya existe");
-        nombre = prompt("Ingrese el nombre del nuevo producto:");
+        name = prompt("Ingrese el nombre del nuevo producto:");
     }
-    let precio = parseFloat(prompt("Ingrese el precio del nuevo producto:"));
-    let cantidad = parseInt(prompt("Ingrese la cantidad del nuevo producto:"));
-    return new Producto(nombre, precio, cantidad);
+    let price = parseFloat(prompt("Ingrese el precio del nuevo producto:"));
+    let amount = parseInt(prompt("Ingrese la cantidad del nuevo producto:"));
+    return new Product(name, price, amount);
 }
 
 // Devuelve -1 si no existe el producto. Si existe devuelve el índice
-function buscarProducto(nombre) {
-    let productoEnLista = listaProductos.find((producto) => producto.nombre === nombre);
-    return listaProductos.indexOf(productoEnLista);
+function findProduct(name) {
+    let productInList = products.find((product) => product.name === name);
+    return products.indexOf(productInList);
 }
 
-function agregarProducto() {
-    nuevoProducto = crearProducto();
-    listaProductos.push(nuevoProducto);
-    console.log(`Nuevo producto agregado. Son ${nuevoProducto.cantidad} productos de tipo ${nuevoProducto.nombre} a $${nuevoProducto.precio} cada uno. Representan un valor de $${nuevoProducto.calcularValor()}`);
+function addProduct() {
+    const newProduct = createProduct();
+    products.push(newProduct);
+    
+    console.log(`Nuevo producto agregado. Son ${newProduct.amount} productos de tipo ${newProduct.name} a $${newProduct.price} cada uno. Representan un valor de $${newProduct.calcValue()}`);
 }
 
-function eliminarProducto(nombre) {
-    let indiceProducto = buscarProducto(nombre);
-    if (indiceProducto !== -1) {
-        listaProductos.splice(indiceProducto, 1)
+function deleteProduct(name) {
+    let productIndex = findProduct(name);
+    if (productIndex !== -1) {
+        products.splice(productIndex, 1)
     }
 }
 
-function ordenarProductos(criterio) {
-    if (criterio === "ascendente") {
-        listaProductos.sort((a, b) => {
-            if (a.nombre < b.nombre) {
+function sortProducts(criterion) {
+    if (criterion === "ascending") {
+        products.sort((a, b) => {
+            if (a.name < b.name) {
                 return -1;
-            } else if (b.nombre > a.nombre) {
+            } else if (b.name > a.name) {
                 return 1;
             }
             else {
@@ -62,11 +63,11 @@ function ordenarProductos(criterio) {
             }
         });
     }
-    else if (criterio === "descendente") {
-        listaProductos.sort((a, b) => {
-            if (a.nombre > b.nombre) {
+    else if (criterion === "descending") {
+        products.sort((a, b) => {
+            if (a.name > b.name) {
                 return -1;
-            } else if (b.nombre < a.nombre) {
+            } else if (b.name < a.name) {
                 return 1;
             }
             else {
@@ -79,54 +80,54 @@ function ordenarProductos(criterio) {
     }
 }
 
-function calcularValorTotal() {
-    let valorTotal = 0;
+function calcTotalValue() {
+    let totalValue = 0;
 
-    for (producto of listaProductos) {
-        valorTotal += producto.calcularValor();
+    for (const product of products) {
+        totalValue += product.calcValue();
     }
 
-    console.log(`El valor de todos los productos en stock es de $${valorTotal}`);
+    console.log(`El valor de todos los productos en stock es de $${totalValue}`);
 }
 
-function mostrarProductos() {
-    console.log(listaProductos);
+///// Funciones para la generación de la tabla de productos
+function createTableHead(products) {
+    const thead = document.createElement("thead");
+    const row = document.createElement("tr");
+    for(const key of Object.keys(products[0])) {
+        const cell = document.createElement("th");
+        cell.innerText = key;
+        row.append(cell);
+    }
+    thead.append(row);
+    return thead;
+}
+
+function createTableBody(products) {
+    const tbody = document.createElement("tbody");
+    for(const product of products) {
+        const row = document.createElement("tr");
+        for(const property of Object.values(product)) {
+            const cell = document.createElement("td");
+            cell.innerText = property;
+            row.append(cell);
+        }
+        tbody.append(row);
+    }
+    return tbody;
+}
+
+function initializeTable(tableId, roducts) {
+    document.getElementById(tableId).append(createTableHead(products));
+    document.getElementById(tableId).append(createTableBody(products));
+}
+
+function hideTable(tableId) {
+    document.getElementById(tableId).style.display = "none";
 }
 
 ///// Main
 
-alert("Se pedirá que ingrese los datos de 4 tipos de productos distintos para agregar al stock.")
-
-agregarProducto();
-agregarProducto();
-agregarProducto();
-agregarProducto();
-calcularValorTotal();
-
-// Ordenamiento de la lista
-respuesta = prompt("Ingrese el número correspondiente al criterio que desea utilizar para ordenar la lista de productos:\n1. Ascendente\n2. Descendente\n");
-
-while ((respuesta !== "1") && (respuesta !== "2") && (respuesta === null)) {
-    alert("La opción ingresada no es válida.")
-    respuesta = prompt("Ingrese el número correspondiente al criterio que desea utilizar para ordenar la lista de productos:\n1. Ascendente\n2. Descendente\n");
-}
-
-if (respuesta === "1") {
-    ordenarProductos("ascendente");
-} else {
-    ordenarProductos("descendente");
-}
-
-mostrarProductos();
-
-// Eliminación del producto
-respuesta = prompt("Ingrese el nombre del producto que desea eliminar:");
-
-while (buscarProducto(respuesta) === -1) {
-    alert("El producto ingresado no existe.")
-    respuesta = prompt("Ingrese el nombre del producto que desea eliminar:");
-}
-
-eliminarProducto(respuesta);
-alert("El producto " + respuesta + " fue eliminado.")
-mostrarProductos();
+sortProducts("ascending");
+initializeTable("productsTable", products);
+//hideTable("productsTable", products)
