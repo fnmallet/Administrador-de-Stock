@@ -1,13 +1,15 @@
 ///// Variables
 
-let products = [{name: "a", price: 14, amount: 250},{name: "c", price: 30, amount: 107},{name: "z", price: 10, amount: 100},{name: "b", price: 100, amount: 500}];
+let products = [{id: 1, name: "a", category: "electrónica", price: 14, amount: 250},{id: 2, name: "c", category: "electrónica", price: 30, amount: 107},{id: 3, name: "z", category: "electrónica", price: 10, amount: 100},{id: 4, name: "b", category: "electrónica", price: 100, amount: 500}];
 let answer = 0;
 
 ///// Clases
 
 class Product {
     constructor(name, price, amount) {
+        this.id = 0;
         this.name = name;
+        this.category = category;
         this.price = price;
         this.amount = amount;
     }
@@ -43,7 +45,7 @@ function addProduct() {
     console.log(`Nuevo producto agregado. Son ${newProduct.amount} productos de tipo ${newProduct.name} a $${newProduct.price} cada uno. Representan un valor de $${newProduct.calcValue()}`);
 }
 
-function deleteProduct(name) {
+function deleteProductFromProducts(name) {
     let productIndex = findProduct(name);
     if (productIndex !== -1) {
         products.splice(productIndex, 1)
@@ -90,44 +92,34 @@ function calcTotalValue() {
     console.log(`El valor de todos los productos en stock es de $${totalValue}`);
 }
 
-///// Funciones para la generación de la tabla de productos
-function createTableHead(products) {
-    const thead = document.createElement("thead");
-    const row = document.createElement("tr");
-    for(const key of Object.keys(products[0])) {
-        const cell = document.createElement("th");
-        cell.innerText = key;
-        row.append(cell);
-    }
-    thead.append(row);
-    return thead;
-}
-
-function createTableBody(products) {
-    const tbody = document.createElement("tbody");
+function createTableRows(tableId, products) {
+    const tbody = document.getElementById(tableId).querySelector("tbody");
     for(const product of products) {
-        const row = document.createElement("tr");
-        for(const property of Object.values(product)) {
-            const cell = document.createElement("td");
-            cell.innerText = property;
-            row.append(cell);
-        }
-        tbody.append(row);
+        const row = `
+        <tr class="align-middle">
+            <td class="nameCell">${product.name}</td>
+            <td>${product.category}</td>
+            <td>${product.price}</td>
+            <td>${product.amount}</td>
+            <td class="deleteCell">
+                <button class="btn" onclick="deleteProduct(this, '${product.name}')">
+                    <img class="deleteButtonImg" src="/assets/images/icons/trash.svg" alt="Eliminar producto">
+                </button>
+            </td>
+        </tr>`
+        tbody.innerHTML += row;
     }
-    return tbody;
 }
 
-function initializeTable(tableId, roducts) {
-    document.getElementById(tableId).append(createTableHead(products));
-    document.getElementById(tableId).append(createTableBody(products));
+function deleteProduct(button, productName) {
+    button.parentElement.parentElement.remove();
+    deleteProductFromProducts(productName);
+}
+
+function initializeTable(tableId, products) {
+    createTableRows(tableId, products);
 }
 
 function hideTable(tableId) {
     document.getElementById(tableId).style.display = "none";
 }
-
-///// Main
-
-sortProducts("ascending");
-initializeTable("productsTable", products);
-//hideTable("productsTable", products)
