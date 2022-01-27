@@ -1,5 +1,11 @@
+///// Variables
+
+let products = loadProducts();
+let answer = 0;
+const newProductForm = "newProductForm";
+
 ///// Main
 
-sortProducts("ascending");
+products = sort(products, "ascending", "name");
 initializeTable("productsTable", products);
-//hideTable("productsTable", products)
+setCssVars();
