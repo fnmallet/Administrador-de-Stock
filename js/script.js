@@ -60,7 +60,3 @@ function sort(objects, criterion, property) {
     }
     return objects;
 }
-
-function initializeTable(tableId, products) {
-    createTableRows(tableId, products);
-}
