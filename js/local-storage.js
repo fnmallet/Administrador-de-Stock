@@ -4,7 +4,7 @@ function loadProducts() {
         return JSON.parse(localStorageProducts);
     }
     else {
-        const defaultProducts = [{name: "Producto 1", category: "Categoría 1", price: 14, amount: 250},{name: "Producto 3", category: "Categoría 1", price: 30, amount: 107},{name: "Producto 2", category: "Categoría 2", price: 10, amount: 100},{name: "Producto 4", category: "Categoría 3", price: 100, amount: 500}];
+        const defaultProducts = [{name: "producto 1", category: "categoría 1", price: 14, amount: 250},{name: "producto 3", category: "categoría 1", price: 30, amount: 107},{name: "producto 2", category: "categoría 2", price: 10, amount: 100},{name: "producto 4", category: "categoría 3", price: 100, amount: 500}];
         localStorage.setItem("products", JSON.stringify(defaultProducts));
         return defaultProducts;
     }
