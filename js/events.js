@@ -1,18 +1,14 @@
-document.getElementById("openNewProductButton").onclick = () => {
-    displayElement(newProductForm);
-}
+$("#openNewProductButton").click(() => {
+    displayElement(newProductForm)});
 
-document.getElementById("closeNewProductButton").onclick = () => {
-    hideElement(newProductForm);
-}
+$(".closeButton").click(() => {
+    hideElement(newProductForm)});
 
-document.getElementById("createProductButton").onclick = () => {
-    const form = document.getElementById(newProductForm);
-
-    const name = form.querySelector("#name").value;
-    const category = form.querySelector("#category").value;
-    const price = form.querySelector("#price").value;
-    const amount = form.querySelector("#amount").value;
+$("#createProductButton").click(() => {
+    const name = $("#" + newProductForm + " #name").val();
+    const category = $("#" + newProductForm + " #category").val();
+    const price = $("#" + newProductForm + " #price").val();
+    const amount = $("#" + newProductForm + " #amount").val();
 
     let error = false;
 
@@ -51,14 +47,12 @@ document.getElementById("createProductButton").onclick = () => {
         const newProduct = createProduct(name, category, price, amount);
 
         addProductToProducts(newProduct);
-        updateLocalStorageProducts(products);
         createTableRows("productsTable", [newProduct]);
         hideElement(newProductForm);
     }
-}
+});
 
-function deleteProduct(button, productName) {
-    button.parentElement.parentElement.remove();
-    deleteProductFromProducts(productName);
-    updateLocalStorageProducts(products);
-}
+$("#refreshProductsButton").click(() => {
+    $("#productsTable tbody").html("");
+    loadProducts();
+});

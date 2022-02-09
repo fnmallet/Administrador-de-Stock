@@ -1,7 +1,37 @@
 :root {
     --nav-height: 0;
     --footer-height: 0;
+    --primary-color: #212529;
+    --text-color: white;
 }
+
+.customizable-theme {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    fill: var(--primary-color);
+}
+
+#themesContainer svg {
+    height: 40px;
+    width: 40px;
+}
+
+.closeButton {
+    top: 5px;
+    right: 5px;
+}
+
+.btn:focus {
+    box-shadow: 0 0 0 0.25rem rgb(255 255 255 / 25%);
+}
+
+/* Nav */
+
+#settingsButtonImg {
+    width: 20px;
+}
+
+/* Tabla de productos */
 
 .deleteButtonImg {
     width: 20px;
@@ -23,16 +53,24 @@
     width: 20%;
 }
 
-#closeNewProductButton {
-    top: 5px;
-    right: 5px;
-}
+/* Formulario de nuevo producto */
 
 #newProductForm {
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.5);
+    display: none;
 }
+
+.boxShadow {
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+/* Estructura principal */
 
 main {
     min-height: calc(100vh - var(--nav-height) - var(--footer-height));
+}
+
+.offcanvas-header {
+    height: var(--nav-height);
 }

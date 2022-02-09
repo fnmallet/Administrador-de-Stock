@@ -1,0 +1,38 @@
+[
+    {
+        "name": "disco rígido",
+        "category": "computación",
+        "price": 3000,
+        "amount": 300
+    },
+    {
+        "name": "monitor",
+        "category": "computación",
+        "price": 40000,
+        "amount": 300
+    },
+    {
+        "name": "remera",
+        "category": "ropa",
+        "price": 1000,
+        "amount": 500
+    },
+    {
+        "name": "pantalón",
+        "category": "ropa",
+        "price": 1500,
+        "amount": 457
+    },
+    {
+        "name": "heladera",
+        "category": "electrodoméstico",
+        "price": 150000,
+        "amount": 95
+    },
+    {
+        "name": "placa de video",
+        "category": "computación",
+        "price": 80000,
+        "amount": 100
+    }
+]

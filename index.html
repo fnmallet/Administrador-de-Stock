@@ -9,8 +9,8 @@
         <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
-        <head>
-            <nav class="navbar navbar-light bg-dark">
+        <header>
+            <nav class="navbar navbar-light customizable-theme">
                 <div class="container-fluid">
                     <a class="navbar-brand text-white" href="#">
                         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-box" viewBox="0 0 16 16">
@@ -18,40 +18,56 @@
                         </svg>
                         Empresa
                     </a>
+                    <button type="button" class="btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+                        <img id="settingsButtonImg" src="/assets/images/icons/gear.svg" alt="Configuración">
+                    </button>
                 </div>
             </nav>
-        </head>
+        </header>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="offcanvas-header customizable-theme">
+                <h5 id="offcanvasRightLabel">Configuración</h5>
+                <button type="button" class="btn closeButton customizable-theme" data-bs-dismiss="offcanvas" aria-label="Close">
+                    <img class="text-white h-100 w-100" src="/assets/images/icons/x-lg.svg" alt="Cerrar">
+                </button>
+            </div>
+            <div class="offcanvas-body">
+                <span class="fs-3">Tema personalizado</span>
+                <div id="themesContainer" class="container-fluid d-flex justify-content-between mt-3 border">
+                </div>
+            </div>
+        </div>
         <main>
             <form id="newProductForm" class="d-none position-fixed h-100 w-100 d-flex justify-content-center align-items-center flex-column">
-                <div class="bg-white w-50 position-relative">
-                    <button id="closeNewProductButton" class="btn position-absolute p-0">
-                        <img class="text-white h-100 w-100" src="/assets/images/icons/x-lg.svg" alt="Cerrar">
+                <div class="bg-white w-25 position-relative">
+                    <button type="button" class="btn position-absolute p-0 closeButton customizable-theme">
+                        <img class="h-100 w-100" src="/assets/images/icons/x-lg.svg" alt="Cerrar">
                     </button>
-                    <h2 class="bg-dark text-white text-center pt-2 pb-2">Nuevo producto</h2>
+                    <h2 class="customizable-theme text-center pt-2 pb-2">Nuevo producto</h2>
                     <div class="ps-4 pe-4 pb-4">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="name" placeholder="Nombre">
-                            <p id="nameRepeatedHelp" class="text-danger fs-6 d-none">El producto ingresado ya existe.</p>
-                            <p id="nameHelp" class="text-danger fs-6 d-none">Debe ingresar entre 1 y 20 caracteres alfanuméricos. Se aceptan espacios.</p>
+                            <span id="nameRepeatedHelp" class="text-danger fs-6 d-none">El producto ingresado ya existe.</span>
+                            <span id="nameHelp" class="text-danger fs-6 d-none">Debe ingresar entre 1 y 20 caracteres alfanuméricos. Se aceptan espacios.</span>
                         </div>
                         <div class="mb-3">
                             <label for="category" class="form-label">Categoría</label>
                             <input type="text" class="form-control" id="category" placeholder="Categoría">
-                            <p id="categoryHelp" class="text-danger fs-6 d-none">Debe ingresar entre 1 y 20 caracteres alfanuméricos.</p>
+                            <span id="categoryHelp" class="text-danger fs-6 d-none">Debe ingresar entre 1 y 20 caracteres alfanuméricos.</span>
                         </div>
                         <div class="mb-3">
                             <label for="amount" class="form-label">Cantidad</label>
                             <input type="text" class="form-control" id="amount" placeholder="Cantidad">
-                            <p id="amountHelp" class="text-danger fs-6 d-none">La cantidad debe ser un número entero de entre 1 y 10 cifras, sin puntos.</p>
+                            <span id="amountHelp" class="text-danger fs-6 d-none">La cantidad debe ser un número entero de entre 1 y 10 cifras, sin puntos.</span>
                         </div>
                         <div class="mb-3">
                             <label for="price" class="form-label">Precio Unitario</label>
                             <input type="text" class="form-control" id="price" placeholder="Precio">
-                            <p id="priceHelp" class="text-danger fs-6 d-none">El precio debe ser un número de entre 1 y 10 cifras, con hasta dos decimales.</p>
+                            <span id="priceHelp" class="text-danger fs-6 d-none">El precio debe ser un número de entre 1 y 10 cifras, con hasta dos decimales.</span>
                         </div>
                         <div class="text-center">
-                            <button type="button" id="createProductButton" class="btn btn-dark w-100">Agregar producto</button>
+                            <button type="button" id="createProductButton" class="btn customizable-theme w-100">Agregar producto</button>
                         </div>
                     </div>
                 </div>
@@ -59,7 +75,10 @@
             <div class="container pt-2">
                 <div class="row">
                     <h1>Administrador de Stock</h1>
-                    <button id="openNewProductButton"" class="btn btn-dark w-25">Agregar producto</button>
+                    <div class="d-flex gap-2">
+                        <button  type="button" id="openNewProductButton"" class="btn customizable-theme w-25">Agregar producto</button>
+                        <button  type="button" id="refreshProductsButton"" class="btn customizable-theme w-25">Recargar productos</button>
+                    </div>
                 </div>
                 <div class="row">
                     <table id="productsTable" class="table align-middle">
@@ -80,11 +99,14 @@
         <footer class="bg-black w-100 text-center p-5">
             <p class="text-white">Desarrollado por Fernando Mallet</p>
         </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="/js/script.js"></script>
         <script src="/js/dom.js"></script>
         <script src="/js/style.js"></script>
         <script src="/js/events.js"></script>
         <script src="/js/local-storage.js"></script>
+        <script src="/js/ajax.js"></script>
         <script src="/js/main.js"></script>
     </body>
 </html>

@@ -1,4 +1,8 @@
 function setCssVars() {
-    document.querySelector(':root').style.setProperty("--nav-height", document.querySelector("nav").clientHeight + 'px');
-    document.querySelector(':root').style.setProperty("--footer-height", document.querySelector("footer").clientHeight + 'px');
+    $(':root').css("--nav-height", $("nav").css("height"));
+    $(':root').css("--footer-height", $("footer").css("height"));
+}
+
+function loadTheme(theme) {
+    $(":root").css('--primary-color', theme.color);
 }
