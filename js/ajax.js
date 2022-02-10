@@ -1,3 +1,4 @@
+// Carga de productos desde el archivo JSON
 function loadProducts() {
     let defaultProducts = [];
 
@@ -9,6 +10,7 @@ function loadProducts() {
             products = defaultProducts;
             products = sort(products, "ascending", "name");
             createTableRows(productsTable, products);
+            addEditableInputsEvents();
         }
     });
 }

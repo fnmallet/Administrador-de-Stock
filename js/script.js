@@ -30,6 +30,12 @@ function deleteProductFromProducts(name) {
     }
 }
 
+function editProductProperty(name, property, value) {
+    console.log(name + " " + property + " " + value)
+    console.log(products.find(product => product.name === name))
+    products.find(product => product.name === name)[property] = value;
+}
+
 function sort(objects, criterion, property) {
     if (criterion === "ascending") {
         objects.sort((a, b) => {
@@ -59,4 +65,19 @@ function sort(objects, criterion, property) {
         console.error("Error: criterio de ordenamiento inválido");
     }
     return objects;
+}
+
+function getPropertyFromCell(cell) {
+    if (cell.hasClass("nameCell")) {
+        return "name";
+    } else if (cell.hasClass("categoryCell")) {
+        return "category";
+    } else if (cell.hasClass("priceCell")) {
+        return "price";
+    } else if (cell.hasClass("amountCell")) {
+        return "amount"
+    }
+    else {
+        console.error("Error: no se encontró una propiedad válida en la celda a editar.")
+    }
 }

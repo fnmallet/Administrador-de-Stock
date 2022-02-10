@@ -1,9 +1,16 @@
+// Eventos para el formulario de nuevos productos
+
 $("#openNewProductButton").click(() => {
-    displayElement(newProductForm)});
+    displayElement(newProductForm)
+    $("#newProductForm").animate({opacity: 1}, 500);
+});
 
 $(".closeButton").click(() => {
-    hideElement(newProductForm)});
+    hideElement(newProductForm);
+    $("#newProductForm").css("opacity", 0);
+});
 
+// Eventos para la creación de productos
 $("#createProductButton").click(() => {
     const name = $("#" + newProductForm + " #name").val();
     const category = $("#" + newProductForm + " #category").val();
@@ -52,7 +59,28 @@ $("#createProductButton").click(() => {
     }
 });
 
+// Evento para recargar lista de productos
 $("#refreshProductsButton").click(() => {
     $("#productsTable tbody").html("");
     loadProducts();
 });
+
+// Eventos para hacer editable la tabla
+function addEditableInputsEvents() {
+    $(".editableInputCell").click((e) => {
+        const input = $(e.target);
+        input.removeAttr("readonly");
+    });
+
+    $(".editableInputCell").blur((e) => {
+        const input = $(e.target);
+        const parentRow = input.parents(':eq(1)');
+        const productName = parentRow.find(".nameCell > input").val();
+        const productPropertyToEdit = getPropertyFromCell(input.parent());
+        const newValue = input.val();
+    
+        input.attr("readonly", "true");
+        editProductProperty(productName, productPropertyToEdit, newValue);
+        console.log(products);
+    });
+}

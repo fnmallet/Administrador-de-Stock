@@ -30,9 +30,21 @@
         "amount": 95
     },
     {
+        "name": "procesador",
+        "category": "computación",
+        "price": 20000,
+        "amount": 30
+    },
+    {
+        "name": "camisa",
+        "category": "ropa",
+        "price": 5000,
+        "amount": 143
+    },
+    {
         "name": "placa de video",
         "category": "computación",
         "price": 80000,
         "amount": 100
     }
-]
+]   

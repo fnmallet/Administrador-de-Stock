@@ -10,6 +10,6 @@ let theme = loadLocalStorageTheme();
 ///// Main
 
 setCssVars();
-createThemeButtons(themes, themesContainer)
-loadProducts();
+createThemeButtons(themes, themesContainer);
 loadTheme(theme);
+loadProducts();

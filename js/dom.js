@@ -1,10 +1,10 @@
 function createTableRows(tableId, products) {
     for(const product of products) {
         $("#" + tableId + " tbody").append(`<tr>
-                                <td class="nameCell">${product.name}</td>
-                                <td class="categoryCell">${product.category}</td>
-                                <td class="priceCell text-center">${product.price}</td>
-                                <td class="amountCell text-center">${product.amount}</td>
+                                <td class="nameCell"><input class="editableInputCell" value="${product.name}" readonly></input></td>
+                                <td class="categoryCell editableCell"><input class="editableInputCell" value="${product.category}" readonly></input></td>
+                                <td class="priceCell editableCell text-center"><input class="editableInputCell text-center" value="${product.price}" readonly></input></td>
+                                <td class="amountCell editableCell text-center"><input class="editableInputCell text-center" value="${product.amount}" readonly></input></td>
                                 <td class="deleteCell">
                                     <button class="btn" type="button" onclick="deleteProduct(this, '${product.name}')">
                                         <img class="deleteButtonImg" src="/assets/images/icons/trash.svg" alt="Eliminar producto.">

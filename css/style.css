@@ -25,6 +25,19 @@
     box-shadow: 0 0 0 0.25rem rgb(255 255 255 / 25%);
 }
 
+input[readonly] {
+    border: none;
+}
+
+input:focus {
+    outline-color:var(--primary-color);
+}
+
+.form-control:focus {
+    border-color:var(--primary-color);
+    box-shadow: none;
+}
+
 /* Nav */
 
 #settingsButtonImg {
@@ -47,6 +60,7 @@
 
 .priceCell {
     width: 10%;
+    max-width: 10%;
 }
 
 .categoryCell {
@@ -59,6 +73,7 @@
     z-index: 1000;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
+    opacity: 0;
 }
 
 .boxShadow {
