@@ -26,11 +26,12 @@
 }
 
 input[readonly] {
-    border: none;
+    border-style: none;
 }
 
-input:focus {
+tbody input:focus {
     outline-color:var(--primary-color);
+    border-style: none;
 }
 
 .form-control:focus {

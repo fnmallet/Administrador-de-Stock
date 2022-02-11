@@ -41,3 +41,11 @@ function createThemeButtons(themes, themesContainer) {
         });
     }
 }
+
+// Ordenar tabla sin pedir datos con AJAX
+function sortProductsTableLocally(products, criterion, property) {
+    sort(products, criterion, property);
+    $("#productsTable tbody").html("");
+    createTableRows(productsTable, products);
+    addEditableInputsEvents();
+}

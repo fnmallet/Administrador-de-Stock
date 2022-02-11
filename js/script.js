@@ -31,38 +31,51 @@ function deleteProductFromProducts(name) {
 }
 
 function editProductProperty(name, property, value) {
-    console.log(name + " " + property + " " + value)
-    console.log(products.find(product => product.name === name))
     products.find(product => product.name === name)[property] = value;
 }
 
 function sort(objects, criterion, property) {
-    if (criterion === "ascending") {
-        objects.sort((a, b) => {
-            if (a[property] < b[property]) {
-                return -1;
-            } else if (b[property] > a[property]) {
-                return 1;
-            }
-            else {
-                return 0;
-            }
-        });
-    }
-    else if (criterion === "descending") {
-        objects.sort((a, b) => {
-            if (a[property] > b[property]) {
-                return -1;
-            } else if (b[property] < a[property]) {
-                return 1;
-            }
-            else {
-                return 0;
-            }
-        });
+    if (property === "price" || property === "amount") {
+        if (criterion === "ascending") {
+            objects.sort((a, b) => {
+                return parseInt(a[property]) - parseInt(b[property]);
+            });
+        } else if (criterion === "descending") {
+            objects.sort((a, b) => {
+                return parseInt(b[property]) - parseInt(a[property]);
+            });
+        } else {
+            console.error("Error: criterio de ordenamiento inválido");
+        }
     }
     else {
-        console.error("Error: criterio de ordenamiento inválido");
+        if (criterion === "ascending") {
+            objects.sort((a, b) => {
+                if (a[property] < b[property]) {
+                    return -1;
+                } else if (a[property] > b[property]) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            });
+        }
+        else if (criterion === "descending") {
+            objects.sort((a, b) => {
+                if (a[property] > b[property]) {
+                    return -1;
+                } else if (a[property] < b[property]) {
+                    return 1;
+                }
+                else {
+                    return 0;
+                }
+            });
+        }
+        else {
+            console.error("Error: criterio de ordenamiento inválido");
+        }
     }
     return objects;
 }
