@@ -78,9 +78,16 @@ function addEditableInputsEvents() {
         const productName = parentRow.find(".nameCell > input").val();
         const productPropertyToEdit = getPropertyFromCell(input.parent());
         const newValue = input.val();
-
+    
         input.attr("readonly", "true");
         editProductProperty(productName, productPropertyToEdit, newValue);
+        $("#editNotification").fadeIn(500).delay(1000).fadeOut(500);
+    });
+
+    $(".editableInputCell").keyup((e) => {
+        if(e.keyCode == 13) {
+            $(e.currentTarget).blur();
+        }
     });
 }
 
