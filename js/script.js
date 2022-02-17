@@ -51,9 +51,9 @@ function sort(objects, criterion, property) {
     else {
         if (criterion === "ascending") {
             objects.sort((a, b) => {
-                if (a[property] < b[property]) {
+                if (a[property].toLowerCase()  < b[property].toLowerCase() ) {
                     return -1;
-                } else if (a[property] > b[property]) {
+                } else if (a[property].toLowerCase() > b[property].toLowerCase()) {
                     return 1;
                 }
                 else {
@@ -63,9 +63,9 @@ function sort(objects, criterion, property) {
         }
         else if (criterion === "descending") {
             objects.sort((a, b) => {
-                if (a[property] > b[property]) {
+                if (a[property].toLowerCase() > b[property].toLowerCase()) {
                     return -1;
-                } else if (a[property] < b[property]) {
+                } else if (a[property].toLowerCase()  < b[property].toLowerCase() ) {
                     return 1;
                 }
                 else {

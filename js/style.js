@@ -3,6 +3,6 @@ function setCssVars() {
     $(':root').css("--footer-height", $("footer").css("height"));
 }
 
-function loadTheme(theme) {
+function loadThemeToCss(theme) {
     $(":root").css('--primary-color', theme.color);
 }

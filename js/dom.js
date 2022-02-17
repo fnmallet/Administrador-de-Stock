@@ -25,6 +25,7 @@ function hideElement(id) {
 function deleteProduct(button, productName) {
     button.parentElement.parentElement.remove();
     deleteProductFromProducts(productName);
+    updateLocalStorageProducts(products);
 }
 
 function createThemeButtons(themes, themesContainer) {
@@ -36,16 +37,21 @@ function createThemeButtons(themes, themesContainer) {
                                         </button>
         `)
         $("#" + themesContainer + " button").last().on("click", () => {
-            loadTheme(theme);
+            loadThemeToCss(theme);
             updateLocalStorageTheme(theme);
         });
     }
 }
 
 // Ordenar tabla sin pedir datos con AJAX
-function sortProductsTableLocally(products, criterion, property) {
+function sortProductsTable(products, criterion, property) {
     sort(products, criterion, property);
     $("#productsTable tbody").html("");
+    createTableRows(productsTable, products);
+    addEditableInputsEvents();
+}
+
+function generateProductsTable(products) {
     createTableRows(productsTable, products);
     addEditableInputsEvents();
 }

@@ -25,13 +25,13 @@ $("#createProductButton").click(() => {
     } else {
         hideElement("nameRepeatedHelp");
     }
-    if (!name.match("^[A-Za-z0-9 ]{1,20}$")) {
+    if (!name.match("^[A-Za-z][A-Za-z0-9 ]{0,19}$")) {
         displayElement("nameHelp");
         error = true;
     } else {
         hideElement("nameHelp");
     }
-    if (!category.match("^[A-Za-z0-9 ]{1,20}$")) {
+    if (!category.match("^[A-Za-z0-9]{1,20}$")) {
         displayElement("categoryHelp");
         error = true;
     } else {
@@ -54,16 +54,33 @@ $("#createProductButton").click(() => {
         const newProduct = createProduct(name, category, price, amount);
 
         addProductToProducts(newProduct);
+        updateLocalStorageProducts(products);
         createTableRows("productsTable", [newProduct]);
         hideElement(newProductForm);
     }
 });
 
-// Evento para recargar lista de productos con AJAX
-$("#refreshProductsButton").click(() => {
-    $("#productsTable tbody").html("");
-    loadProducts();
+$("#name").keypress((e) => {
+    onNewProductFormKeypress(e);
 });
+
+$("#category").keypress((e) => {
+    onNewProductFormKeypress(e);
+});
+
+$("#amount").keypress((e) => {
+    onNewProductFormKeypress(e);
+});
+
+$("#price").keypress((e) => {
+    onNewProductFormKeypress(e);
+});
+
+function onNewProductFormKeypress(e) {
+    if(e.keyCode == 13) {
+        $("#createProductButton").click();
+    }
+}
 
 // Eventos para hacer editable la tabla
 function addEditableInputsEvents() {
@@ -84,7 +101,7 @@ function addEditableInputsEvents() {
         $("#editNotification").fadeIn(500).delay(1000).fadeOut(500);
     });
 
-    $(".editableInputCell").keyup((e) => {
+    $(".editableInputCell").keypress((e) => {
         if(e.keyCode == 13) {
             $(e.currentTarget).blur();
         }
@@ -100,15 +117,15 @@ $(".sortButton").click((e) => {
     if (!caretRight.hasClass("d-none")) {
         caretRight.addClass("d-none");
         caretDown.removeClass("d-none");
-        sortProductsTableLocally(products, "descending", property);
+        sortProductsTable(products, "descending", property);
     } else if (!caretDown.hasClass("d-none")) {
         caretDown.addClass("d-none");
         caretUp.removeClass("d-none");
-        sortProductsTableLocally(products, "ascending", property);
+        sortProductsTable(products, "ascending", property);
     } else {
         caretUp.addClass("d-none");
         caretDown.removeClass("d-none");
-        sortProductsTableLocally(products, "descending", property);
+        sortProductsTable(products, "descending", property);
     }
     for (const button of $(".sortButton").toArray()) {
         if (button !== e.currentTarget) {
