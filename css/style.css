@@ -33,13 +33,22 @@
 }
 
 /* Notificaciones */
-#editNotification {
+#editNotificationSuccess {
     display: none;
     z-index: 1000;
 }
 
-#editNotification div {
+#editNotificationSuccess div {
     background-color: #90EE90;
+}
+
+#editNotificationFail {
+    display: none;
+    z-index: 1000;
+}
+
+#editNotificationFail div {
+    background-color: #ee9090;
 }
 
 /* Nav */

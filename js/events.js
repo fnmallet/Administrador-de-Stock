@@ -96,6 +96,19 @@ function getRegularExpression(property) {
     }
 }
 
+function getInputErrorMessage(property) {
+    switch(property) {
+        case "name":
+            return "Error: debe ingresar entre 1 y 20 caracteres alfanuméricos. Se aceptan espacios. Debe comenzar con una letra.";
+        case "category":
+            return "Error: debe ingresar una palabra de entre 1 y 20 caracteres alfanuméricos.";
+        case "amount":
+            return "Error: la cantidad debe ser un número entero de entre 1 y 10 cifras, sin puntos.";
+        case "price":
+            return "Error: el precio debe ser un número de entre 1 y 10 cifras, con hasta dos decimales.";
+    }
+}
+
 // Eventos para hacer editable la tabla
 function addEditableInputsEvents() {
     $(".editableInputCell").click((e) => {
@@ -118,9 +131,11 @@ function addEditableInputsEvents() {
                     productName = input.data("value");
                 }
                 editProductProperty(productName, productPropertyToEdit, newValue);
-                $("#editNotification").fadeIn(500).delay(1000).fadeOut(500);
+                $("#editNotificationSuccess").fadeIn(500).delay(2000).fadeOut(500);
             } else {
                 input.val(input.data("value"));
+                $("#editNotificationFailText").text(getInputErrorMessage(productPropertyToEdit))
+                $("#editNotificationFail").fadeIn(500).delay(3000).fadeOut(500);
             }
         }
     });
