@@ -5,6 +5,7 @@
     --text-color: white;
 }
 
+/* Temas */
 .customizable-theme {
     background-color: var(--primary-color);
     color: var(--text-color);
@@ -16,6 +17,7 @@
     width: 40px;
 }
 
+/* Botones */
 .closeButton {
     top: 5px;
     right: 5px;
@@ -25,20 +27,12 @@
     box-shadow: 0 0 0 0.25rem rgb(255 255 255 / 25%);
 }
 
-input[readonly] {
-    border-style: none;
-}
-
-tbody input:focus {
-    outline-color:var(--primary-color);
-    border-style: none;
-}
-
 .form-control:focus {
     border-color:var(--primary-color);
     box-shadow: none;
 }
 
+/* Notificaciones */
 #editNotification {
     display: none;
     z-index: 1000;
@@ -75,6 +69,15 @@ tbody input:focus {
 
 .categoryCell {
     width: 20%;
+}
+
+input[readonly] {
+    border-style: none;
+}
+
+tbody input:focus {
+    outline-color:var(--primary-color);
+    border-style: none;
 }
 
 /* Formulario de nuevo producto */

@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div id="editNotification" class="position-fixed vh-100 vw-100 pt-5">
+        <div id="editNotification" class="position-fixed vh-100 vw-100 pt-5 pe-none">
             <div class="w-25 mx-auto rounded">
                 <div class="text-success fs-5 text-center p-3 rounded">El producto ha sido modificado correctamente.</div>
             </div>
@@ -74,7 +74,6 @@
                     </div>
                     <div class="text-center">
                         <button type="button" id="createProductButton" class="btn customizable-theme w-100">Agregar producto</button>
-                        <button type="button" id="createProductButton" class="btn customizable-theme w-100">Actualizar tabla</button>
                     </div>
                 </div>
             </div>
@@ -82,60 +81,65 @@
         <main>
             <div class="container pt-2">
                 <div class="row">
-                    <h1>Administrador de Stock</h1>
-                    <div class="d-flex gap-2">
-                        <button  type="button" id="openNewProductButton"" class="btn customizable-theme">Agregar producto</button>
+                    <div class="col d-flex align-items-center">
+                        <h1 class="w-auto">Administrador de Stock</h1>
+                    </div>
+                    <div class="col d-flex gap-2 justify-content-end pt-3 pb-3 align-items-center">
+                        <button  type="button" id="openNewProductButton" class="btn customizable-theme">Agregar producto</button>
+                        <button  type="button" id="refreshTableButton" class="btn customizable-theme">Reiniciar tabla</button>
                     </div>
                 </div>
                 <div class="row">
-                    <table id="productsTable" class="table align-middle">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <span class="d-flex align-items-center">
-                                        Nombre
-                                        <button class="btn sortButton p-0" data-property="name">
-                                            <img class="caretRight" src="/assets/images/icons/caret-right-fill.svg" alt="Ordenar">
-                                            <img class="caretUp d-none" src="/assets/images/icons/caret-up-fill.svg" alt="Ordenar">
-                                            <img class="caretDown d-none" src="/assets/images/icons/caret-down-fill.svg" alt="Ordenar">
-                                        </button>
-                                    </span>
-                                </th>
-                                <th class="categoryCell">
-                                    <span class="d-flex align-items-center">
-                                        Categoría
-                                        <button class="btn sortButton p-0" data-property="category">
-                                            <img class="caretRight" src="/assets/images/icons/caret-right-fill.svg" alt="Ordenar">
-                                            <img class="caretUp d-none" src="/assets/images/icons/caret-up-fill.svg" alt="Ordenar">
-                                            <img class="caretDown d-none" src="/assets/images/icons/caret-down-fill.svg" alt="Ordenar">
-                                        </button>
-                                    </span>
-                                </th>
-                                <th class="text-center priceCell">
-                                    <span class="d-flex align-items-center justify-content-center">
-                                    Precio Unitario
-                                        <button class="btn sortButton p-0" data-property="price">
-                                            <img class="caretRight" src="/assets/images/icons/caret-right-fill.svg" alt="Ordenar">
-                                            <img class="caretUp d-none" src="/assets/images/icons/caret-up-fill.svg" alt="Ordenar">
-                                            <img class="caretDown d-none" src="/assets/images/icons/caret-down-fill.svg" alt="Ordenar">
-                                        </button>
-                                    </span>
-                                </th>
-                                <th class="text-center amountCell">
-                                    <span class="d-flex align-items-center justify-content-center">
-                                        Cantidad
-                                        <button class="btn sortButton p-0 d-inline-flex" data-property="amount">
-                                            <img class="caretRight" src="/assets/images/icons/caret-right-fill.svg" alt="Ordenar">
-                                            <img class="caretUp d-none" src="/assets/images/icons/caret-up-fill.svg" alt="Ordenar">
-                                            <img class="caretDown d-none" src="/assets/images/icons/caret-down-fill.svg" alt="Ordenar">
-                                        </button>
-                                    </span>
-                                </th>
-                                <th class="deleteCell"></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table id="productsTable" class="table align-middle">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="d-flex align-items-center">
+                                            Nombre
+                                            <button class="btn sortButton p-0" data-property="name">
+                                                <img class="caretRight" src="/assets/images/icons/caret-right-fill.svg" alt="Ordenar">
+                                                <img class="caretUp d-none" src="/assets/images/icons/caret-up-fill.svg" alt="Ordenar">
+                                                <img class="caretDown d-none" src="/assets/images/icons/caret-down-fill.svg" alt="Ordenar">
+                                            </button>
+                                        </span>
+                                    </th>
+                                    <th class="categoryCell">
+                                        <span class="d-flex align-items-center">
+                                            Categoría
+                                            <button class="btn sortButton p-0" data-property="category">
+                                                <img class="caretRight" src="/assets/images/icons/caret-right-fill.svg" alt="Ordenar">
+                                                <img class="caretUp d-none" src="/assets/images/icons/caret-up-fill.svg" alt="Ordenar">
+                                                <img class="caretDown d-none" src="/assets/images/icons/caret-down-fill.svg" alt="Ordenar">
+                                            </button>
+                                        </span>
+                                    </th>
+                                    <th class="text-center priceCell">
+                                        <span class="d-flex align-items-center justify-content-center">
+                                        Precio Unitario
+                                            <button class="btn sortButton p-0" data-property="price">
+                                                <img class="caretRight" src="/assets/images/icons/caret-right-fill.svg" alt="Ordenar">
+                                                <img class="caretUp d-none" src="/assets/images/icons/caret-up-fill.svg" alt="Ordenar">
+                                                <img class="caretDown d-none" src="/assets/images/icons/caret-down-fill.svg" alt="Ordenar">
+                                            </button>
+                                        </span>
+                                    </th>
+                                    <th class="text-center amountCell">
+                                        <span class="d-flex align-items-center justify-content-center">
+                                            Cantidad
+                                            <button class="btn sortButton p-0 d-inline-flex" data-property="amount">
+                                                <img class="caretRight" src="/assets/images/icons/caret-right-fill.svg" alt="Ordenar">
+                                                <img class="caretUp d-none" src="/assets/images/icons/caret-up-fill.svg" alt="Ordenar">
+                                                <img class="caretDown d-none" src="/assets/images/icons/caret-down-fill.svg" alt="Ordenar">
+                                            </button>
+                                        </span>
+                                    </th>
+                                    <th class="deleteCell"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </main>

@@ -25,25 +25,25 @@ $("#createProductButton").click(() => {
     } else {
         hideElement("nameRepeatedHelp");
     }
-    if (!name.match("^[A-Za-z][A-Za-z0-9 ]{0,19}$")) {
+    if (!name.match(getRegularExpression("name"))) {
         displayElement("nameHelp");
         error = true;
     } else {
         hideElement("nameHelp");
     }
-    if (!category.match("^[A-Za-z0-9]{1,20}$")) {
+    if (!category.match(getRegularExpression("category"))) {
         displayElement("categoryHelp");
         error = true;
     } else {
         hideElement("categoryHelp");
     }
-    if (!price.match("^[0-9]{1,10}[,]{0,1}[0-9]{0,2}$")) {
+    if (!price.match(getRegularExpression("price"))) {
         displayElement("priceHelp");
         error = true;
     } else {
         hideElement("priceHelp");
     }
-    if (!amount.match("^[0-9]{1,10}$")) {
+    if (!amount.match(getRegularExpression("amount"))) {
         displayElement("amountHelp");
         error = true;
     } else {
@@ -60,6 +60,7 @@ $("#createProductButton").click(() => {
     }
 });
 
+// Eventos para la modificación de productos
 $("#name").keypress((e) => {
     onNewProductFormKeypress(e);
 });
@@ -82,23 +83,46 @@ function onNewProductFormKeypress(e) {
     }
 }
 
+function getRegularExpression(property) {
+    switch(property) {
+        case "name":
+            return new RegExp("^[a-z][a-z0-9 áéíóú]{0,19}$", "iu");
+        case "category":
+            return new RegExp("^[a-z0-9áéíóú]{1,20}$", "iu");
+        case "amount":
+            return new RegExp("^[0-9]{1,10}$", "u");
+        case "price":
+            return new RegExp("^[0-9]{1,10}[,]{0,1}[0-9]{0,2}$", "u");
+    }
+}
+
 // Eventos para hacer editable la tabla
 function addEditableInputsEvents() {
     $(".editableInputCell").click((e) => {
         const input = $(e.currentTarget);
+        input.data("value", input.val());
         input.removeAttr("readonly");
     });
 
     $(".editableInputCell").blur((e) => {
         const input = $(e.currentTarget);
         const parentRow = input.parents(':eq(1)');
-        const productName = parentRow.find(".nameCell > input").val();
-        const productPropertyToEdit = getPropertyFromCell(input.parent());
+        let productName = parentRow.find(".nameCell > input").val();
+        const productPropertyToEdit = input.data("property");
         const newValue = input.val();
-    
+
         input.attr("readonly", "true");
-        editProductProperty(productName, productPropertyToEdit, newValue);
-        $("#editNotification").fadeIn(500).delay(1000).fadeOut(500);
+        if(input.data("value") !== input.val()) {
+            if(input.val().match(getRegularExpression(productPropertyToEdit))) {
+                if(productPropertyToEdit === "name") {
+                    productName = input.data("value");
+                }
+                editProductProperty(productName, productPropertyToEdit, newValue);
+                $("#editNotification").fadeIn(500).delay(1000).fadeOut(500);
+            } else {
+                input.val(input.data("value"));
+            }
+        }
     });
 
     $(".editableInputCell").keypress((e) => {
@@ -134,4 +158,10 @@ $(".sortButton").click((e) => {
             $(button).find(".caretRight").removeClass("d-none");
         }
     }
+});
+
+// Evento para recargar toda la tabla
+$("#refreshTableButton").click(() => {
+    localStorage.removeItem("products");
+    location.reload();
 });
