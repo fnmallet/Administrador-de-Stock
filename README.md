@@ -1,8 +1,7 @@
 # Administrador-de-Stock
 
-El proyecto consiste en un administrador de stock hecho con **HTML**, **CSS**, **Bootstrap**, **Javascript** y **Jquery**.
+El proyecto consiste en un administrador de stock hecho con **HTML**, **CSS**, **Bootstrap**, **Javascript** y **Jquery**. No se trata de un proyecto real, sino que es un proyecto inventado para poder aplicar todos los temas vistos en el curso, por lo que tiene un diseño simple y no tiene ningún requerimiento en particular.
 
-Presenta un diseño simple y la implementación del código de Javascript implica la aplicación de todos los temas vistos a lo largo del curso.
 
 ## Funcionalidades
 
