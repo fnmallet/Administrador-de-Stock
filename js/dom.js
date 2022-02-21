@@ -24,7 +24,7 @@ function hideElement(id) {
 
 function deleteProduct(products, button, productName) {
     button.parentElement.parentElement.remove();
-    deleteProductFromProducts(productName);
+    deleteProductFromProducts(products, productName);
     updateLocalStorageProducts(products);
 }
 

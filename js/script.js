@@ -21,7 +21,7 @@ function addProductToProducts(product) {
     products.push(product);
 }
 
-function deleteProductFromProducts(name) {
+function deleteProductFromProducts(products, name) {
     let productIndex = products.findIndex((product) => product.name === name);
     if (productIndex !== -1) {
         products.splice(productIndex, 1)
