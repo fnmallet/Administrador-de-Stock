@@ -6,7 +6,7 @@ function createTableRows(tableId, products) {
                                 <td class="priceCell editableCell text-center"><input class="editableInputCell text-center" value="${product.price}" readonly data-value="" data-property="price"></input></td>
                                 <td class="amountCell editableCell text-center"><input class="editableInputCell text-center" value="${product.amount}" readonly data-value="" data-property="amount"></input></td>
                                 <td class="deleteCell">
-                                    <button class="btn" type="button" onclick="deleteProduct(this, '${product.name}')">
+                                    <button class="btn" type="button" onclick="deleteProduct(products, this, '${product.name}')">
                                         <img class="deleteButtonImg" src="/assets/images/icons/trash.svg" alt="Eliminar producto.">
                                     </button>
                                 </td>
@@ -22,7 +22,7 @@ function hideElement(id) {
     $("#"+id).addClass("d-none");
 }
 
-function deleteProduct(button, productName) {
+function deleteProduct(products, button, productName) {
     button.parentElement.parentElement.remove();
     deleteProductFromProducts(productName);
     updateLocalStorageProducts(products);
