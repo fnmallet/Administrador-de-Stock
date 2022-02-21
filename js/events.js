@@ -19,7 +19,7 @@ $("#createProductButton").click(() => {
 
     let error = false;
 
-    if (products.some((product) => product.name === name) && name.length > 0) {
+    if (products.some((product) => product.name === name)) {
         displayElement("nameRepeatedHelp")
         error = true;
     } else {
@@ -110,35 +110,47 @@ function getInputErrorMessage(property) {
             return "Error: la cantidad debe ser un número entero de entre 1 y 10 cifras, sin puntos.";
         case "price":
             return "Error: el precio debe ser un número de entre 1 y 10 cifras, con hasta dos decimales.";
+        case "exists":
+            return "Error: el nombre de producto ingresado ya existe.";
     }
 }
 
 // Eventos para hacer editable la tabla
 function addEditableInputsEvents() {
-    $(".editableInputCell").click((e) => {
+    $(".editableInputCell").focus((e) => {
         const input = $(e.currentTarget);
+        const parentRow = input.parents(':eq(1)');
+        const nameInput = parentRow.find(".nameCell > input");
         input.data("value", input.val());
+        nameInput.data("value", nameInput.val());
         input.removeAttr("readonly");
     });
 
+    /* Los atributos data-value de los inputs en el HTML almacenan el valor previo a comenzar la edición de la propiedad del producto.
+    De esta forma se puede saber cuál es el estado inicial para poder revertir cambios.*/
     $(".editableInputCell").blur((e) => {
         const input = $(e.currentTarget);
         const parentRow = input.parents(':eq(1)');
-        let productName = parentRow.find(".nameCell > input").val();
         const productPropertyToEdit = input.data("property");
+        const oldValue = input.data("value");
         const newValue = input.val();
+        const oldProductName = parentRow.find(".nameCell > input").data("value");
+        const newNameValue = parentRow.find(".nameCell > input").val();
 
         input.attr("readonly", "true");
-        if(input.data("value") !== input.val()) {
-            if(input.val().match(getRegularExpression(productPropertyToEdit))) {
-                if(productPropertyToEdit === "name") {
-                    productName = input.data("value");
-                }
-                editProductProperty(productName, productPropertyToEdit, newValue);
+        if(oldValue !== newValue) {
+            $("#editNotificationFail").finish();
+            $("#editNotificationSuccess").finish();
+            if(products.some((product) => product.name === newNameValue) && productPropertyToEdit === "name") {
+                input.val(input.data("value"));
+                $("#editNotificationFailText").text(getInputErrorMessage("exists"));
+                $("#editNotificationFail").fadeIn(500).delay(3000).fadeOut(500);
+            } else if(input.val().match(getRegularExpression(productPropertyToEdit))) {
+                editProductProperty(oldProductName, productPropertyToEdit, newValue);
                 $("#editNotificationSuccess").fadeIn(500).delay(2000).fadeOut(500);
             } else {
                 input.val(input.data("value"));
-                $("#editNotificationFailText").text(getInputErrorMessage(productPropertyToEdit))
+                $("#editNotificationFailText").text(getInputErrorMessage(productPropertyToEdit));
                 $("#editNotificationFail").fadeIn(500).delay(3000).fadeOut(500);
             }
         }
