@@ -57,6 +57,10 @@ $("#createProductButton").click(() => {
         updateLocalStorageProducts(products);
         createTableRows("productsTable", [newProduct]);
         hideElement(newProductForm);
+        $("#" + newProductForm + " #name").val("");
+        $("#" + newProductForm + " #category").val("");
+        $("#" + newProductForm + " #price").val("");
+        $("#" + newProductForm + " #amount").val("");
     }
 });
 

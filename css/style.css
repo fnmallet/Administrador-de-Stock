@@ -3,6 +3,7 @@
     --footer-height: 0;
     --primary-color: #212529;
     --text-color: white;
+    --text-hover: gold;
 }
 
 /* Temas */
@@ -27,8 +28,12 @@
     box-shadow: 0 0 0 0.25rem rgb(255 255 255 / 25%);
 }
 
+.btn:hover {
+    color: var(--text-hover);
+}
+
 .form-control:focus {
-    border-color:var(--primary-color);
+    border-color: var(--primary-color);
     box-shadow: none;
 }
 
